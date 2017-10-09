@@ -1,0 +1,21 @@
+Package: wasp
+Type: Package
+Title: Wavelet Analysis for Spatial Patterns
+Version: 0.1.0
+Authors@R: person("Mikhail", "Churakov", email = "mikhail.churakov@pasteur.fr", role = c("aut", "cre"))
+Maintainer: Mikhail Churakov <mikhail.churakov@pasteur.fr>
+Description:
+    The package contains functions for wavelet analysis of case series from several locations
+    to detect spatial patterns of the disease.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends:
+    R (>= 3.2.0),
+    stats,
+    utils,
+    graphics,
+    grDevices,
+    biwavelet,
+    MASS
+LazyData: true
+RoxygenNote: 6.0.1
