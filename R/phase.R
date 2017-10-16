@@ -113,10 +113,52 @@ plotAveragePhaseLag <- function(slideMat, perc = 0.95) {
   points(1:length(meanPhases), meanPhases + ci * sds, col = "red", pch = 19, cex = 0.5)
   points(1:length(meanPhases), meanPhases - ci * sds, col = "red", pch = 19, cex = 0.5)
   
-  for (i in 1:length(meanPhases))
+  for (i in 1:length(meanPhases)) {
     lines(c(i, i), c(meanPhases[i] - ci * sds[i], meanPhases[i] + ci * sds[i]))
+    print(paste0(names(meanPhases)[i], ": ", meanPhases[i], " [", meanPhases[i] - ci * sds[i], ", ", 
+                 meanPhases[i] + ci * sds[i], "]"))
+  }
   
   mtext(names(meanPhases), 1, at = 1:length(meanPhases), las = 2, line = 0.2, cex = 0.5)
   
   return(meanPhases)
+}
+
+
+#' @title Plot median phase lags averaged over time
+#' @description Plot median phase lags averaged over time.
+#'
+#' @param slideMat A matrix of phase angles.
+#' @param perc Percentage envelope for quantiles around the median.
+#'
+#' @author Mikhail Churakov (\email{mikhail.churakov@@pasteur.fr}).
+#' 
+#' @export
+plotMedianPhaseLag <- function(slideMat, perc = 0.95) {
+  median <- rowMeans(slideMat)
+  upper <- rowMeans(slideMat)
+  lower <- rowMeans(slideMat)
+  
+  for (i in 1:nrow(slideMat)) {
+    x <- quantile(slideMat[i, ], probs = c((1 - perc) / 2, 0.5, (1 + perc) / 2))
+    lower[i] <- x[1]
+    median[i] <- x[2]
+    upper[i] <- x[3]
+  }
+  
+  lower <- lower[order(median)]
+  upper <- upper[order(median)]
+  median <- sort(median)
+  
+  plot(median, ylim = c(-pi, pi), ylab = "Median phase lag from other locations", xlab = "", xaxt = "n", las = 1)
+  
+  points(1:length(median), upper, col = "red", pch = 19, cex = 0.5)
+  points(1:length(median), lower, col = "red", pch = 19, cex = 0.5)
+  
+  for (i in 1:length(median))
+    lines(c(i, i), c(lower[i], upper[i]))
+  
+  mtext(names(median), 1, at = 1:length(median), las = 2, line = 0.2, cex = 0.5)
+  
+  return(median)
 }
