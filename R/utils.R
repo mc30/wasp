@@ -9,6 +9,8 @@
 #' @param x A numeric vector of values.
 #' @param colors A vector of colors for the palette.
 #' @param range A range of values for color picking.
+#' 
+#' @return Returns a vector with colors.
 #'
 #' @author Mikhail Churakov (\email{mikhail.churakov@@pasteur.fr}).
 #' 
