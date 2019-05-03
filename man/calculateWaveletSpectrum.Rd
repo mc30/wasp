@@ -5,7 +5,7 @@
 \title{Calculate wavelet spectra and phase angle matrix for time series}
 \usage{
 calculateWaveletSpectrum(bwn, locs = 1:nrow(bwn), units = 12,
-  periodStep = 1/100)
+  periodStep = 1/100, bRemoveNulls = FALSE)
 }
 \arguments{
 \item{bwn}{A matrix of values for which the wavelet spectrum is desired.}
@@ -15,9 +15,11 @@ calculateWaveletSpectrum(bwn, locs = 1:nrow(bwn), units = 12,
 \item{units}{Number of time units in one period (e.g. months in a year) (X axis)}
 
 \item{periodStep}{Resolution of time component (i.e. periods) (Y axis)}
+
+\item{bRemoveNulls}{Logical; if \code{TRUE} removes all NULL objects from the final list.}
 }
 \value{
-Returns a matrix with phase angles.
+Returns a list of wavelet outputs.
 }
 \description{
 Computes wavelet spectra and creates a matrix of phase angles.

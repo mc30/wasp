@@ -14,6 +14,9 @@ getColorsFromNumbers(x, colors = c("blue", "white", "red"),
 
 \item{range}{A range of values for color picking.}
 }
+\value{
+Returns a vector with colors.
+}
 \description{
 Function to convert numbers into colors.
 }

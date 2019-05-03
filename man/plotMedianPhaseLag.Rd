@@ -4,12 +4,21 @@
 \alias{plotMedianPhaseLag}
 \title{Plot median phase lags averaged over time}
 \usage{
-plotMedianPhaseLag(slideMat, perc = 0.95)
+plotMedianPhaseLag(slideMat, perc = 0.95, ylim = c(-pi, pi),
+  ylab = "Median phase lag from other locations", xlab = "", ...)
 }
 \arguments{
 \item{slideMat}{A matrix of phase angles.}
 
 \item{perc}{Percentage envelope for quantiles around the median.}
+
+\item{ylim}{.}
+
+\item{ylab}{.}
+
+\item{xlab}{.}
+
+\item{\dots}{Additional graphical parameters.}
 }
 \description{
 Plot median phase lags averaged over time.

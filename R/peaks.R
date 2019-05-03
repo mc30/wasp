@@ -96,7 +96,7 @@ plotAnnualCurves <- function(cases, start, period = 12, perc = 0.95) {
 #' @param start The start timepoint of each season.
 #' @param period The period of seasons (e.g. 12 for monthly data, and 52 for weekly).
 #' @param perc CI range for the mean peak timing.
-#' @param Logical; if \code{TRUE} bootstrap will be used.
+#' @param bBootstrap Logical; if \code{TRUE} bootstrap will be used.
 #' 
 #' @return Returns a named vector of mean peaks for each location.
 #'

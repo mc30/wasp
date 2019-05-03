@@ -11,21 +11,20 @@
 #' @param locs A vector of rows (i.e. locations) to be used in the analysis.
 #' @param units Number of time units in one period (e.g. months in a year) (X axis)
 #' @param periodStep Resolution of time component (i.e. periods) (Y axis)
+#' @param bRemoveNulls Logical; if \code{TRUE} removes all NULL objects from the final list.
 # @param \dots Additional arguments (currently ignored)
 #' 
-#' @return Returns a matrix with phase angles.
+#' @return Returns a list of wavelet outputs.
 #' @details Rows with uniform zero incidence will be ignored and excluded from the resulting list.
 #'
 #' @author Mikhail Churakov (\email{mikhail.churakov@@pasteur.fr}).
 #'
 #' @export
-calculateWaveletSpectrum <- function(bwn, locs = 1:nrow(bwn), units = 12, periodStep = 1 / 100) {
-  print("Calculating wavelet power spectrum...")
-  
+calculateWaveletSpectrum <- function(bwn, locs = 1:nrow(bwn), units = 12, periodStep = 1 / 100, bRemoveNulls = FALSE) {
   wts <- vector("list", length(locs))
   k <- 0
   for (i in locs) {
-    print(rownames(bwn)[i])
+    print(paste0("Calculating wavelet power spectrum for ", rownames(bwn)[i]))
     
     if (length(which(bwn[i, ] == 0)) == length(bwn[i, ])) { # if all the case numbers are zeros
       k <- k + 1
@@ -35,7 +34,7 @@ calculateWaveletSpectrum <- function(bwn, locs = 1:nrow(bwn), units = 12, period
     # Construct object for wavelet input
     tsfoc <- cbind(1:ncol(bwn), bwn[i, ])
     
-    ##show the focal wavelet plus ts plot
+    # Show the focal wavelet plus ts plot
     wtfoc <- wt(tsfoc, dj = periodStep)
     wtfoc$t <- wtfoc$t / units
     wtfoc$period <- wtfoc$period / units
@@ -46,18 +45,15 @@ calculateWaveletSpectrum <- function(bwn, locs = 1:nrow(bwn), units = 12, period
   }
   names(wts) <- rownames(bwn)[locs]
   
-  # Remove NULLs
-  if (length(which(sapply(wts, is.null))) > 0)
+  if (bRemoveNulls & length(which(sapply(wts, is.null))) > 0)
     wts <- wts[-which(sapply(wts, is.null))]
-  
-  print("... Done!")
   
   return(wts)
 }
 
 
 #' @title Plot wavelet spectrum
-#' @description Plots wavelet spectrum
+#' @description Plots a graph with wavelet spectrum
 #'
 #' @param wtfoc Wavelet spectrum object.
 #' @param units Number of time units in one period (e.g. months in a year) (X axis)
@@ -83,6 +79,7 @@ plotWaveletSpectrum <- function(wtfoc, units = 12, period = 1, periodRange = c(0
 #' @param wts A list of wavelet spectrum objects.
 #' @param cases A matrix with case series.
 #' @param i A row number (i.e. location) for plotting.
+#' @param units Number of time units in one period (e.g. months in a year) (X axis)
 #' @param period The period we are interested in.
 #' @param periodRange The range of periods to plot.
 #' @param bLog Logical; if \code{TRUE} adds a line of logged cases.
@@ -90,7 +87,7 @@ plotWaveletSpectrum <- function(wtfoc, units = 12, period = 1, periodRange = c(0
 #' @author Mikhail Churakov (\email{mikhail.churakov@@pasteur.fr}).
 #' 
 #' @export
-plotWaveletGraph <- function(wts, cases, i, period = 1, periodRange = c(0.2, 4), bLog = FALSE) {
+plotWaveletGraph <- function(wts, cases, i, units = 12, period = 1, periodRange = c(0.2, 4), bLog = FALSE) {
   old.par <- par(mar = c(2, 4.1, 4.1, 0))
   
   m <- rbind(c(1, 4), c(2, 3))
@@ -117,7 +114,7 @@ plotWaveletGraph <- function(wts, cases, i, period = 1, periodRange = c(0.2, 4),
   
   ### Second graph: wavelet spectrum
   par(mar = c(5.1, 4.1, 0, 0))
-  plotWaveletSpectrum(wts[[i]])
+  plotWaveletSpectrum(wts[[i]], units = units, period = period, periodRange = periodRange)
   
   
   ### Third graph: overall wavelet power

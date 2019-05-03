@@ -5,7 +5,9 @@
 \title{Plot mean phase lags from other locations}
 \usage{
 plotMeanPhaseLagOverTime(slideMat, sel = 1:nrow(slideMat), colors = c("red",
-  "yellow", "green", "blue"), legendSize = 1, legendNcol = 1)
+  "yellow", "green", "blue"), legendSize = 1, legendNcol = 1, cex = 0,
+  xlim = c(1, ncol(slideMat)), ylim = c(-pi, pi), xlab = "Time",
+  ylab = "Phase lag from other regions", ...)
 }
 \arguments{
 \item{slideMat}{A matrix of phase angles.}
@@ -17,6 +19,18 @@ plotMeanPhaseLagOverTime(slideMat, sel = 1:nrow(slideMat), colors = c("red",
 \item{legendSize}{Size of the legend.}
 
 \item{legendNcol}{Number of columns in the legend.}
+
+\item{cex}{.}
+
+\item{xlim}{.}
+
+\item{ylim}{.}
+
+\item{xlab}{.}
+
+\item{ylab}{.}
+
+\item{\dots}{Additional graphical parameters.}
 }
 \description{
 Plot mean phase lags from other locations.

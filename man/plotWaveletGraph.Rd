@@ -4,8 +4,8 @@
 \alias{plotWaveletGraph}
 \title{Plot wavelet spectrum summary graph}
 \usage{
-plotWaveletGraph(wts, cases, i, period = 1, periodRange = c(0.2, 4),
-  bLog = FALSE)
+plotWaveletGraph(wts, cases, i, units = 12, period = 1,
+  periodRange = c(0.2, 4), bLog = FALSE)
 }
 \arguments{
 \item{wts}{A list of wavelet spectrum objects.}
@@ -13,6 +13,8 @@ plotWaveletGraph(wts, cases, i, period = 1, periodRange = c(0.2, 4),
 \item{cases}{A matrix with case series.}
 
 \item{i}{A row number (i.e. location) for plotting.}
+
+\item{units}{Number of time units in one period (e.g. months in a year) (X axis)}
 
 \item{period}{The period we are interested in.}
 

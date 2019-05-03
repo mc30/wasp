@@ -19,7 +19,7 @@ plotWaveletSpectrum(wtfoc, units = 12, period = 1, periodRange = c(0.2,
 \item{title}{Main title for the plot.}
 }
 \description{
-Plots wavelet spectrum
+Plots a graph with wavelet spectrum
 }
 \author{
 Mikhail Churakov (\email{mikhail.churakov@pasteur.fr}).

@@ -64,15 +64,21 @@ createSlidingPhaseMatrix <- function(phaseMatrix, window = 12, bSort = TRUE) {
 #' @param colors Vector of colors to create a palette for different locations.
 #' @param legendSize Size of the legend. 
 #' @param legendNcol Number of columns in the legend. 
+#' @param cex .  
+#' @param xlim .  
+#' @param ylim .  
+#' @param xlab .  
+#' @param ylab . 
+#' @param \dots Additional graphical parameters.
 #'
 #' @author Mikhail Churakov (\email{mikhail.churakov@@pasteur.fr}).
 #' 
 #' @export
 plotMeanPhaseLagOverTime <- function(slideMat, sel = 1:nrow(slideMat), colors = c("red", "yellow", "green", "blue"),
-                                     legendSize = 1, legendNcol = 1) {
-  plot(1:ncol(slideMat), rep(0, ncol(slideMat)), cex = 0, ylim = c(-pi, pi), xlim = c(1, ncol(slideMat)),
-       xlab = "Time", ylab = "Phase lag from other regions")
-  
+                                     legendSize = 1, legendNcol = 1, 
+                                     cex = 0, xlim = c(1, ncol(slideMat)), ylim = c(-pi, pi),
+                                     xlab = "Time", ylab = "Phase lag from other regions", ...) {
+  plot(1:ncol(slideMat), rep(0, ncol(slideMat)), cex = cex, xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, ...)
   meanPhases <- rowMeans(slideMat)
   pal <- getColorsFromNumbers(meanPhases, colors, range(meanPhases))
   
@@ -130,11 +136,15 @@ plotAveragePhaseLag <- function(slideMat, perc = 0.95) {
 #'
 #' @param slideMat A matrix of phase angles.
 #' @param perc Percentage envelope for quantiles around the median.
+#' @param ylim .
+#' @param ylab .
+#' @param xlab .
+#' @param \dots Additional graphical parameters.
 #'
 #' @author Mikhail Churakov (\email{mikhail.churakov@@pasteur.fr}).
 #' 
 #' @export
-plotMedianPhaseLag <- function(slideMat, perc = 0.95) {
+plotMedianPhaseLag <- function(slideMat, perc = 0.95, ylim = c(-pi, pi), ylab = "Median phase lag from other locations", xlab = "", ...) {
   median <- rowMeans(slideMat)
   upper <- rowMeans(slideMat)
   lower <- rowMeans(slideMat)
@@ -150,15 +160,16 @@ plotMedianPhaseLag <- function(slideMat, perc = 0.95) {
   upper <- upper[order(median)]
   median <- sort(median)
   
-  plot(median, ylim = c(-pi, pi), ylab = "Median phase lag from other locations", xlab = "", xaxt = "n", las = 1)
+  plot(median, ylim = ylim, ylab = ylab, xlab = xlab, xaxt = "n", las = 1, ...)
   
-  points(1:length(median), upper, col = "red", pch = 19, cex = 0.5)
-  points(1:length(median), lower, col = "red", pch = 19, cex = 0.5)
+  # points(1:length(median), upper, col = "red", pch = 19, ...)
+  # points(1:length(median), lower, col = "red", pch = 19, ...)
   
   for (i in 1:length(median))
-    lines(c(i, i), c(lower[i], upper[i]))
+    # lines(c(i, i), c(lower[i], upper[i]))
+    arrows(i, lower[i], i, upper[i], code = 3, angle = 90, length = 0.001 + 0.2 / log(nrow(slideMat)))
   
-  mtext(names(median), 1, at = 1:length(median), las = 2, line = 0.2, cex = 0.5)
+  mtext(names(median), 1, at = 1:length(median), las = 2, line = 0.2, cex = 0.01 + 2.5 / log(nrow(slideMat)))
   
   return(median)
 }

@@ -16,7 +16,7 @@ plotMeanPeakTiming(pMat, start, period = 12, perc = 0.95,
 
 \item{perc}{CI range for the mean peak timing.}
 
-\item{Logical;}{if \code{TRUE} bootstrap will be used.}
+\item{bBootstrap}{Logical; if \code{TRUE} bootstrap will be used.}
 }
 \value{
 Returns a named vector of mean peaks for each location.
