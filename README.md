@@ -1,6 +1,6 @@
 # wasp
 
-`wasp` is an R package for wavelet analysis of disease case series from multiple locations, aimed to detect and describe spatial patterns of the disease. I aimed to create a shareable code to perform wavelet analysis methods to describe periodic behaviour of disease case series from multiple locations.
+`wasp` is an R package for wavelet analysis of disease case series originating from multiple locations. It can be used to detect and describe periodic behaviour and spatial patterns of the disease spread.
 
 ## Installation
 
@@ -12,4 +12,4 @@ devtools::install_github("mc30/wasp")
 
 ## Feedback
 
-If you have any comments, suggestions or a portion of criticism, please contact me at <mikhail.churakov@gmail.com>.
+If you have any comments or suggestions, I'd be happy to receive them.
